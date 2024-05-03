@@ -121,11 +121,22 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: RawMaterialButton (
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        elevation : 2.0,
+        fillColor : Colors.blue,
+        shape : const CircleBorder(),
+        child : ClipOval(
+        child : SizedBox(
+          width : 60.0,
+          height : 60.0,
+          child: Image.asset("assets/images/development.png",
+           fit:BoxFit.cover,
+          ),
+        ),
+      ),
+      ),
     );
   }
+
 }
