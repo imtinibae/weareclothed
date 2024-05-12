@@ -158,7 +158,7 @@ class _NewPageState extends State<NewPage> {
         children: [
           Expanded(
             child: Center(
-              child: Text('Profile.'),
+              child: Text('My Profile.'),
             ),
           ),
           TableCalendar(
