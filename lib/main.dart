@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,17 +59,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   elevation: 2.0,
                   fillColor: Colors.black,
                   shape: const CircleBorder(),
-                  child: Image.asset(
-                    "assets/images/face1.jpeg",
-                    fit: BoxFit.cover,
+                  constraints: const BoxConstraints(
+                    minWidth: 60.0,
+                    minHeight: 60.0,
                   ),
+                  child: ClipOval(
+                    child: Image.asset(
+                      "assets/images/face1.jpeg",
+                      fit: BoxFit.cover,
+                      width: 60.0,
+                      height: 60.0,
+                  ),
+                ),
                 ),
               ),
             ),
             Expanded(
               child: ImageWithDescription(
                 imagePath: "assets/images/fit1.jpeg",
-                description: "Description de l'image",
+                description: "Fit from thrift shop !",
               ),
             ),
           ],
@@ -92,15 +101,18 @@ class ImageWithDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        Container (
+          width : 600.0,
+          height : 600.0,
+        child :
         Image.asset(
           imagePath,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
+          fit: BoxFit.fill,
+        ),
         ),
         Positioned(
-          bottom: 16.0,
-          left: 16.0,
+          bottom: 50.0,
+          left: 15.0,
           child: Container(
             padding: const EdgeInsets.all(8.0),
             color: Colors.white.withOpacity(0.5),
@@ -118,17 +130,60 @@ class ImageWithDescription extends StatelessWidget {
   }
 }
 
-class NewPage extends StatelessWidget {
+class NewPage extends StatefulWidget {
   const NewPage({Key? key}) : super(key: key);
+
+  @override
+  _NewPageState createState() => _NewPageState();
+}
+
+class _NewPageState extends State<NewPage> {
+  late DateTime _selectedDay;
+  late CalendarFormat _calendarFormat;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDay = DateTime.now();
+    _calendarFormat = CalendarFormat.month;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Page'),
+        title: Text('New Page'),
       ),
-      body: Center(
-        child: const Text('This is a new page.'),
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: Text('Profile.'),
+            ),
+          ),
+          TableCalendar(
+            calendarFormat: _calendarFormat,
+            focusedDay: _selectedDay,
+            firstDay: DateTime.utc(2020, 1, 1),
+            lastDay: DateTime.utc(2030, 12, 31),
+            headerStyle: HeaderStyle(
+              titleCentered: true,
+            ),
+            onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+              });
+            },
+            selectedDayPredicate: (day) {
+              return isSameDay(_selectedDay, day);
+            },
+          ),
+        ],
       ),
     );
   }
