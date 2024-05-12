@@ -155,33 +155,73 @@ class _NewPageState extends State<NewPage> {
         title: Text('New Page'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            child: Center(
-              child: Text('My Profile.'),
+          SizedBox(height: 20.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 30.0,
+                  backgroundImage: AssetImage('assets/images/face1.jpeg'),
+                ),
+                SizedBox(width: 16.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Nom Utilisateur',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      Text(
+                        'Description de l\'utilisateur',
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Action lorsque le bouton Suivre est pressé
+                  },
+                  child: Text('Suivre'),
+                ),
+              ],
             ),
           ),
-          TableCalendar(
-            calendarFormat: _calendarFormat,
-            focusedDay: _selectedDay,
-            firstDay: DateTime.utc(2020, 1, 1),
-            lastDay: DateTime.utc(2030, 12, 31),
-            headerStyle: HeaderStyle(
-              titleCentered: true,
+          SizedBox(height: 20.0), // Espacement
+          // Calendrier
+          Expanded(
+            child: TableCalendar(
+              calendarFormat: _calendarFormat,
+              focusedDay: _selectedDay,
+              firstDay: DateTime.utc(2020, 1, 1),
+              lastDay: DateTime.utc(2030, 12, 31),
+              headerStyle: HeaderStyle(
+                titleCentered: true,
+              ),
+              onFormatChanged: (format) {
+                setState(() {
+                  _calendarFormat = format;
+                });
+              },
+              onDaySelected: (selectedDay, focusedDay) {
+                setState(() {
+                  _selectedDay = selectedDay;
+                });
+              },
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
             ),
-            onFormatChanged: (format) {
-              setState(() {
-                _calendarFormat = format;
-              });
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
-              });
-            },
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
           ),
         ],
       ),
