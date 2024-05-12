@@ -5,30 +5,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'weareclothed'),
@@ -37,45 +21,20 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         title: Text(widget.title),
       ),
       body: Center(
@@ -88,40 +47,88 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: 60.0,
                 height: 60.0,
                 child: RawMaterialButton(
-                  onPressed: _incrementCounter,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NewPage(),
+                      ),
+                    );
+                  },
                   elevation: 2.0,
-                  fillColor: Colors.blue,
+                  fillColor: Colors.black,
                   shape: const CircleBorder(),
                   child: Image.asset(
-                    "assets/images/development.png",
+                    "assets/images/face1.jpeg",
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
             ),
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset("assets/images/development.png"),
-                  const Text(
-                    'You have pushed the button this many times:',
-                    style: TextStyle(
-                      fontFamily: 'VT323',
-                    ),
-                  ),
-                  Text(
-                    '$_counter',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headlineMedium,
-                  ),
-                ],
+              child: ImageWithDescription(
+                imagePath: "assets/images/fit1.jpeg",
+                description: "Description de l'image",
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ImageWithDescription extends StatelessWidget {
+  final String imagePath;
+  final String description;
+
+  const ImageWithDescription({
+    Key? key,
+    required this.imagePath,
+    required this.description,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
+        Positioned(
+          bottom: 16.0,
+          left: 16.0,
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            color: Colors.white.withOpacity(0.5),
+            child: Text(
+              description,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class NewPage extends StatelessWidget {
+  const NewPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('New Page'),
+      ),
+      body: Center(
+        child: const Text('This is a new page.'),
       ),
     );
   }
