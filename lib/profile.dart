@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class NewPage extends StatelessWidget {
-  NewPage({Key? key}) : super(key: key);
+  NewPage({super.key});
 
   final Map<DateTime, List<Event>> events = {
     DateTime.now(): [Event(imagePath: 'assets/images/fit1.jpeg')],
@@ -15,23 +15,23 @@ class NewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.secondary,
-        title: Text('weareclothed'),
+        title: const Text('weareclothed'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30.0,
                   backgroundImage: AssetImage('assets/images/face2.jpeg'),
                 ),
-                SizedBox(width: 16.0),
-                Expanded(
+                const SizedBox(width: 16.0),
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -55,12 +55,12 @@ class NewPage extends StatelessWidget {
                   onPressed: () {
                     // Action lorsque le bouton Suivre est pressé
                   },
-                  child: Text('ADD'),
+                  child: const Text('ADD'),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 20.0), // Espacement
+          const SizedBox(height: 20.0), // Espacement
           // Calendrier avec miniatures d'image
           Expanded(
             child: Padding(
@@ -70,10 +70,10 @@ class NewPage extends StatelessWidget {
                 focusedDay: DateTime.now(),
                 firstDay: DateTime.utc(2020, 1, 1),
                 lastDay: DateTime.utc(2030, 12, 31),
-                headerStyle: HeaderStyle(
+                headerStyle: const HeaderStyle(
                   titleCentered: true,
                 ),
-                calendarStyle: CalendarStyle(
+                calendarStyle: const CalendarStyle(
                   // Adjust the size of the calendar cells
                   defaultTextStyle: TextStyle(fontSize: 18),
                   weekendTextStyle: TextStyle(fontSize: 18 ),
@@ -115,7 +115,7 @@ class NewPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 20.0), // Espacement
+          const SizedBox(height: 20.0), // Espacement
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
@@ -126,21 +126,21 @@ class NewPage extends StatelessWidget {
                     // Action lorsque le bouton "My Friends" est pressé
                     print('My Friends button pressed');
                   },
-                  child: Text('My Friends'),
+                  child: const Text('My Friends'),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     // Action lorsque le bouton "Settings" est pressé
                     print('Settings button pressed');
                   },
-                  child: Text('Settings'),
+                  child: const Text('Settings'),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     // Action lorsque le bouton "Fav Brands" est pressé
                     print('Fav Brands button pressed');
                   },
-                  child: Text('Fav Brands'),
+                  child: const Text('Fav Brands'),
                 ),
               ],
             ),

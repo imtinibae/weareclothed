@@ -1,12 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'feed.dart'; // Importez le nouveau fichier pour MyHomePage
+import 'package:weareclothed/auth/login_or_register.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options : DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'weareclothed'),
+      debugShowCheckedModeBanner: false,
+      home: const LoginOrRegister(),
     );
   }
 } //

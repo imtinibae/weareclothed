@@ -3,7 +3,7 @@ import 'profile.dart';
 
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -88,19 +88,19 @@ class ImageWithDescription extends StatelessWidget {
   final VoidCallback? onShare;
 
   const ImageWithDescription({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.description,
     this.onLike,
     this.onComment,
     this.onShare,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Image.asset(
@@ -152,10 +152,10 @@ class ReactionBubble extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ReactionBubble({
-    Key? key,
+    super.key,
     required this.icon,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
