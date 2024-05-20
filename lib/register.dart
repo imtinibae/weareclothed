@@ -1,19 +1,68 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:weareclothed/components/my_button.dart';
 import 'package:weareclothed/components/my_textfield.dart';
 
-class RegisterPage extends StatelessWidget {
+import 'helper/helper_functions.dart';
+
+class RegisterPage extends StatefulWidget {
  final void Function()? onTap;
 
-  RegisterPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   //text controllers
   final TextEditingController usernameController = TextEditingController();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final TextEditingController confirmPwController = TextEditingController();
 
   //register method
-  void register() {}
+  void registerUser() async {
+    //show loading circle
+    showDialog(
+      context: context,
+      builder: (context) =>
+      const Center (
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+// make sure passwords match
+if (passwordController.text != confirmPwController.text) {
+  //pop loading circle
+  Navigator.pop(context);
+
+  //show error message to user
+  displayMessageToUser ("Passwords don't match", context);
+}
+//try creating the user
+  
+  try {
+  //create the user 
+    UserCredential?userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email : emailController.text, password: passwordController.text);
+
+    //pop loading circle
+    Navigator.pop(context);
+  } on FirebaseAuthException catch (e) {
+    //pop loading circle
+    Navigator.pop(context);
+    
+    //display error message to User
+    displayMessageToUser(e.code, context);
+
+  }
+
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +82,7 @@ class RegisterPage extends StatelessWidget {
                   //app name
                   const Text("weareclothed", style: TextStyle(fontSize: 20)),
 
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
 
                   //uswername textified
                   MyTextField(
@@ -42,7 +91,7 @@ class RegisterPage extends StatelessWidget {
                     controller: usernameController,
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
 
                   //email textified
                   MyTextField(
@@ -51,7 +100,7 @@ class RegisterPage extends StatelessWidget {
                     controller: emailController,
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
 
                   //password
                   MyTextField(
@@ -78,9 +127,9 @@ class RegisterPage extends StatelessWidget {
                   //register button
                   MyButton(
                     text: "Login",
-                    onTap: register,
+                    onTap: registerUser,
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 15),
 
                   //don't have an account ? Register here
                   Row(
@@ -88,7 +137,7 @@ class RegisterPage extends StatelessWidget {
                     children: [
                       const Text("Already have an account ? "),
                       GestureDetector(
-                        onTap: onTap,
+                        onTap: widget.onTap,
                         child: const Text(
                           "Login Here ! ",
                           style: TextStyle(

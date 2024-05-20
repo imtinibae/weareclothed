@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "476574827270",
+    "project_id": "weareclothed-12239",
+    "storage_bucket": "weareclothed-12239.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476574827270:android:9958bcbedb358927fed487",
+        "android_client_info": {
+          "package_name": "com.example.weareclothed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA71Rwk9g_OkE3oBohrAT5tPxv5eNkaywE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
